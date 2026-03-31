@@ -21,7 +21,7 @@ jobs:
 
       - name: Decodificar el Keystore
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > keystore.jks
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/keystore.jks
 
       - name: Crear local.properties
         run: |
