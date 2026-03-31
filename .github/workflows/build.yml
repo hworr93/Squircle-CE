@@ -19,13 +19,16 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Decode keystore
+        run: |
+           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/keystore.jks
+
       - name: Decodificar el Keystore
         run: |
           # Creamos la carpeta app por si no existe y metemos el jks ahí
           mkdir -p app
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/keystore.jks
 
-      
       - name: Crear local.properties
         run: |
 <<<<<<< HEAD
