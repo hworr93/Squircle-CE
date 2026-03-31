@@ -21,15 +21,29 @@ jobs:
 
       - name: Decodificar el Keystore
         run: |
+          # Creamos la carpeta app por si no existe y metemos el jks ahí
+          mkdir -p app
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/keystore.jks
 
       
       - name: Crear local.properties
         run: |
+<<<<<<< HEAD
           echo "KEYSTORE_PATH=keystore.jks" >> app/local.properties
           echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> app/local.properties
           echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> app/local.properties
           echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> app/local.properties
+=======
+          # Ponemos las propiedades tanto en la raíz como en /app para asegurar
+          echo "KEYSTORE_PATH=keystore.jks" > local.properties
+          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> local.properties
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> local.properties
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> local.properties
+          
+          # Copiamos el mismo archivo a la carpeta app
+          cp local.properties app/local.properties
+
+>>>>>>> 5c63f9b (Fix: duplicar local.properties para variante Foss)
 
       - name: Dar permisos a Gradle
         run: chmod +x gradlew
