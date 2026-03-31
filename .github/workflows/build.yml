@@ -23,12 +23,13 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > app/keystore.jks
 
+      
       - name: Crear local.properties
         run: |
-          echo "KEYSTORE_PATH=keystore.jks" >> local.properties
-          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> local.properties
-          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> local.properties
-          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> local.properties
+          echo "KEYSTORE_PATH=keystore.jks" >> app/local.properties
+          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> app/local.properties
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> app/local.properties
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> app/local.properties
 
       - name: Dar permisos a Gradle
         run: chmod +x gradlew
