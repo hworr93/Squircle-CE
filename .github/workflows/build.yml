@@ -13,10 +13,10 @@ jobs:
         with:
           submodules: recursive # Descarga los submódulos automáticamente
 
-      - name: Configurar Java 21
+      - name: Configurar Java 23
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '23'
           distribution: 'temurin'
 
       - name: Crear directorio app si no existe
@@ -40,8 +40,14 @@ jobs:
       - name: Dar permisos a Gradle
         run: chmod +x gradlew
 
+      - name: Detener Gradle Daemon
+        run: ./gradlew --stop
+
+      - name: Limpiar caché de Gradle
+        run: ./gradlew clean
+
       - name: Compilar APK (Release)
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease --no-daemon
 
       - name: Subir el APK final
         uses: actions/upload-artifact@v4
